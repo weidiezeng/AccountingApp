@@ -1,18 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/activity_main"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <TextView
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/app_bar_layout"
+        android:elevation="0dp"
+        android:orientation="vertical"
+        android:layout_height="120dp"
+        android:layout_width="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <RelativeLayout
+                android:id="@+id/amount_layout"
+                android:layout_width="match_parent"
+                android:layout_height="80dp">
+                <com.robinhood.ticker.TickerView
+                    android:id="@+id/amount_text"
+                    android:paddingTop="10dp"
+                    android:layout_centerHorizontal="true"
+                    android:textColor="@android:color/white"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:textColor="@android:color/white"
+                    android:textSize="60dp"
+                    android:layout_toEndOf="@+id/amount_text"
+                    android:layout_alignTop="@+id/amount_text"
+                    android:id="@+id/currency_text"
+                    android:text="￥"
+                    android:gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/amount_text" />
+
+            </RelativeLayout>
+            <TextView
+                android:id="@+id/date_text"
+                android:textStyle="bold"
+                android:layout_centerHorizontal="true"
+                android:text="JUNE 22"
+                android:textColor="@color/colorPrimaryDark"
+                android:layout_below="@id/amount_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </RelativeLayout>
+
+    </android.support.design.widget.AppBarLayout>
+
+    <android.support.design.widget.FloatingActionButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_anchorGravity="bottom|end"
+        android:layout_margin="16dp"
+        android:src="@drawable/ic_launcher_background"
+        app:layout_anchor="@id/app_bar_layout" />
 
-</android.support.constraint.ConstraintLayout>
+
+
+</android.support.design.widget.CoordinatorLayout>
