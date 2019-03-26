@@ -7,12 +7,14 @@ import android.database.DatabaseErrorHandler;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.os.strictmode.SqliteObjectLeakedViolation;
+import android.util.Log;
 
 import java.util.LinkedList;
 
 public class RecordDatabaseHelper extends SQLiteOpenHelper{
 
 
+    private String TAG="RecordDatabaseHelper";
     public static final String DB_NAME="Record";
     private static final String CREATE_RECORD_DB="create table Record("
             + "id integer primary key autoincrement,"
@@ -47,6 +49,8 @@ public class RecordDatabaseHelper extends SQLiteOpenHelper{
         values.put("date",bean.getDate());
         values.put("time",bean.getTimeStamp());
         db.insert(DB_NAME,null,values);
+        values.clear();
+        Log.d(TAG,"adder");
     }
     public void removeRecord(String uuid){
         SQLiteDatabase db=this.getWritableDatabase();
@@ -58,7 +62,7 @@ public class RecordDatabaseHelper extends SQLiteOpenHelper{
         addRecord(record);
     }
 
-    public LinkedList<RecordBean> readrRecord(String datestr){
+    public LinkedList<RecordBean>  readrRecord(String datestr){
 
         LinkedList<RecordBean>records=new LinkedList<>();
         SQLiteDatabase db=this.getWritableDatabase();
@@ -89,7 +93,7 @@ public class RecordDatabaseHelper extends SQLiteOpenHelper{
     }
 
     public LinkedList<String> getAvaliableDate(){
-        LinkedList<String>dates=new LinkedList<>();
+        LinkedList<String> dates=new LinkedList<>();
         SQLiteDatabase db=this.getWritableDatabase();
         Cursor cursor=db.rawQuery("select DISTINCT * from Record order by date asc",new String[]{});
         if(cursor.moveToFirst()){

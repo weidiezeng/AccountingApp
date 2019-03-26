@@ -1,8 +1,9 @@
 package com.example.administrator.accountingapp;
 
+import java.io.Serializable;
 import java.util.UUID;
 
-public class RecordBean {
+public class RecordBean implements Serializable {
     public enum RecordType{
         RECORD_TYPE_EXPENSE,RECORD_TYPE_INCOME
     }

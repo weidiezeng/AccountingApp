@@ -24,6 +24,7 @@
                 <com.robinhood.ticker.TickerView
                     android:id="@+id/amount_text"
                     android:paddingTop="10dp"
+                    android:textSize="60dp"
                     android:layout_centerHorizontal="true"
                     android:textColor="@android:color/white"
                     android:layout_width="wrap_content"
@@ -45,7 +46,7 @@
                 android:id="@+id/date_text"
                 android:textStyle="bold"
                 android:layout_centerHorizontal="true"
-                android:text="JUNE 22"
+                android:text="Sunday"
                 android:textColor="@color/colorPrimaryDark"
                 android:layout_below="@id/amount_layout"
                 android:layout_width="wrap_content"
@@ -53,13 +54,14 @@
         </RelativeLayout>
 
     </android.support.design.widget.AppBarLayout>
-
+    <include layout="@layout/content_main"/>
     <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_anchorGravity="bottom|end"
         android:layout_margin="16dp"
-        android:src="@drawable/ic_launcher_background"
+        android:src="@drawable/baseline_add_black_18"
         app:layout_anchor="@id/app_bar_layout" />
 
 
