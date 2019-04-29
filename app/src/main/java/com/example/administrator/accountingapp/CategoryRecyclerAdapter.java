@@ -16,6 +16,8 @@ public class CategoryRecyclerAdapter extends RecyclerView.Adapter<CategoryViewHo
 
     private LayoutInflater mInflater;
     private Context context;
+
+    //存储消费数据
     private LinkedList<CategoryResBean>cellList=GlobalUtil.getInstance().costRes;
 
     public String getSelected() {
@@ -29,12 +31,23 @@ public class CategoryRecyclerAdapter extends RecyclerView.Adapter<CategoryViewHo
 
     private OnCategoryClickListener onCategoryClickListener;
 
+    /**
+     * 构造器
+     * @param context
+     */
     public CategoryRecyclerAdapter(Context context){
         //GlobalUtil.getInstance().setContext(context);
         this.context=context;
         mInflater=LayoutInflater.from(context);
         selected=cellList.get(0).title;
     }
+
+    /**
+     * 创建ViewHolder
+     * @param viewGroup
+     * @param i
+     * @return
+     */
     @NonNull
     @Override
     public CategoryViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
@@ -43,6 +56,10 @@ public class CategoryRecyclerAdapter extends RecyclerView.Adapter<CategoryViewHo
         return viewHolder;
     }
 
+    /**绑定recyclerview
+     * @param categoryViewHolder
+     * @param i
+     */
     @Override
     public void onBindViewHolder(@NonNull CategoryViewHolder categoryViewHolder, int i) {
         final CategoryResBean res=cellList.get(i);
@@ -68,6 +85,9 @@ public class CategoryRecyclerAdapter extends RecyclerView.Adapter<CategoryViewHo
         }
     }
 
+    /**改变消费类型
+     * @param type
+     */
     public void changeType(RecordBean.RecordType type){
         if(type==RecordBean.RecordType.RECORD_TYPE_EXPENSE){
             cellList=GlobalUtil.getInstance().costRes;

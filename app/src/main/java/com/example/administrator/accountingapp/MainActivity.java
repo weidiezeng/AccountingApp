@@ -26,6 +26,7 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
         GlobalUtil.getInstance().mainActivity=this;
         getSupportActionBar().setElevation(0);
 
+        //初始化各控件
         amountText=findViewById(R.id.amount_text);
         amountText.setCharacterLists(TickerUtils.provideNumberList());
         dateText=findViewById(R.id.date_text);
@@ -36,7 +37,8 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
         viewPager.setOnPageChangeListener(this);
         viewPager.setCurrentItem(pagerAdapter.getLastIndex());
 
-        findViewById(R.id.fab).setOnClickListener(new View.OnClickListener() {
+        //设置悬浮按钮监听事件
+      findViewById(R.id.fab).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent=new Intent(MainActivity.this,AddRecordActivity.class);
@@ -44,6 +46,13 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
             }
         });
 
+     /* findViewById(R.id.fab2).setOnClickListener(new View.OnClickListener() {
+          @Override
+          public void onClick(View v) {
+              Intent intent=new Intent(getApplicationContext(),SearchActivity.class);
+              startActivityForResult(intent,1);
+          }
+      });*/
     }
 
     @Override
@@ -64,6 +73,9 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
         updateHeader();
     }
 
+    /**
+     * 更新头部
+     */
     public void updateHeader(){
         String amount=String.valueOf(pagerAdapter.getTotalCost(currentpageposition));
         amountText.setText(amount);

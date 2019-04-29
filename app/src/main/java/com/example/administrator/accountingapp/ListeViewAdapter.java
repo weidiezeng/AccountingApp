@@ -18,6 +18,7 @@ public class ListeViewAdapter extends BaseAdapter {
     private Context context;
     public ListeViewAdapter(Context context){
         this.context=context;
+
         inflater=LayoutInflater.from(context);
 
     }
@@ -42,6 +43,13 @@ public class ListeViewAdapter extends BaseAdapter {
         return position ;
     }
 
+    /**
+     * 绑定ListView
+     * @param position
+     * @param convertView
+     * @param parent
+     * @return
+     */
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder holder;

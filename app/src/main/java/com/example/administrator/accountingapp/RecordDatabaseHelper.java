@@ -3,18 +3,14 @@ package com.example.administrator.accountingapp;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
-import android.database.DatabaseErrorHandler;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.os.strictmode.SqliteObjectLeakedViolation;
 import android.util.Log;
 
 import java.util.LinkedList;
 
 public class RecordDatabaseHelper extends SQLiteOpenHelper{
 
-
-    private String TAG="RecordDatabaseHelper";
     public static final String DB_NAME="Record";
     private static final String CREATE_RECORD_DB="create table Record("
             + "id integer primary key autoincrement,"
@@ -38,6 +34,11 @@ public class RecordDatabaseHelper extends SQLiteOpenHelper{
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
     }
+
+    /**
+     * 添加数据
+     * @param bean 数据
+     */
     public void addRecord(RecordBean bean){
         SQLiteDatabase db=this.getWritableDatabase();
         ContentValues values=new ContentValues();
@@ -50,18 +51,32 @@ public class RecordDatabaseHelper extends SQLiteOpenHelper{
         values.put("time",bean.getTimeStamp());
         db.insert(DB_NAME,null,values);
         values.clear();
-        Log.d(TAG,"adder");
     }
+
+    /**
+     * 删除数据
+     * @param uuid
+     */
     public void removeRecord(String uuid){
         SQLiteDatabase db=this.getWritableDatabase();
         db.delete(DB_NAME,"uuid=?",new String[]{uuid});
     }
+
+    /**
+     * 编辑数据
+     * @param uuid
+     * @param record
+     */
     public void editRecord(String uuid,RecordBean record){
         removeRecord(uuid);
         record.setUuid(uuid);
         addRecord(record);
     }
 
+    /**读取数据
+     * @param datestr
+     * @return LinkedList<RecordBean>
+     */
     public LinkedList<RecordBean>  readrRecord(String datestr){
 
         LinkedList<RecordBean>records=new LinkedList<>();
@@ -92,6 +107,10 @@ public class RecordDatabaseHelper extends SQLiteOpenHelper{
         return records;
     }
 
+    /**
+     * 获取有用日期
+     * @return
+     */
     public LinkedList<String> getAvaliableDate(){
         LinkedList<String> dates=new LinkedList<>();
         SQLiteDatabase db=this.getWritableDatabase();
@@ -107,4 +126,64 @@ public class RecordDatabaseHelper extends SQLiteOpenHelper{
         cursor.close();
         return dates;
     }
+
+    /**
+     * @param month
+     * @return
+     */
+    /*public double Search(int month){
+        double sum=0;
+        String sql="";
+        SQLiteDatabase db=getWritableDatabase();
+        switch (month){
+            case 1:
+                sql="select * from Record where date BETWEEN '2019-01-01' AND '2019-01-31'";
+                break;
+            case 2:
+                sql="select * from Record where date BETWEEN '2019-02-01' AND '2019-02-28'";
+                break;
+            case 3:
+                sql="select * from Record where date BETWEEN '2019-03-01' AND '2019-03-31'";
+                break;
+            case 4:
+                sql="select * from Record where date BETWEEN '2019-04-01' AND '2019-04-30'";
+                break;
+            case 5:
+                sql="select * from Record where date BETWEEN '2019-05-01' AND '2019-05-31'";
+                break;
+            case 6:
+                sql="select * from Record where date BETWEEN '2019-06-01' AND '2019-06-30'";
+                break;
+            case 7:
+                sql="select * from Record where date BETWEEN '2019-07-01' AND '2019-07-31'";
+                break;
+            case 8:
+                sql="select * from Record where date BETWEEN '2019-08-01' AND '2019-08-31'";
+                break;
+            case 9:
+                sql="select * from Record where date BETWEEN '2019-09-01' AND '2019-09-30'";
+                break;
+            case 10:
+                sql="select * from Record where date BETWEEN '2019-10-01' AND '2019-10-31'";
+                break;
+            case 11:
+                sql="select * from Record where date BETWEEN '2019-11-01' AND '2019-11-30'";
+                break;
+            case 12:
+                sql="select * from Record where date BETWEEN '2019-12-01' AND '2019-12-31'";
+                break;
+
+        }
+
+        Cursor cursor=db.rawQuery(sql,new String[]{});
+        if(cursor.moveToFirst()){
+            do{
+                sum+=cursor.getDouble(cursor.getColumnIndex("amount"));
+            }while (cursor.moveToNext());
+        }
+        else {
+            sum=0.00;
+        }
+        return sum;
+    }*/
 }

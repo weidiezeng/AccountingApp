@@ -9,6 +9,7 @@ public class RecordBean implements Serializable {
     }
 
 
+    //定义数据类型
     private double amount;
     private RecordType type;
     private String category;

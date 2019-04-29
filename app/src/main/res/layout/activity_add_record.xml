@@ -190,22 +190,28 @@
 
         <EditText
             android:id="@+id/edit_text"
-            android:textColor="@android:color/white"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_below="@+id/textview_amount2"
-            android:layout_margin="10dp"
-            android:textSize="30dp"
-            android:text="Book"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/bg_edit_text"
             android:paddingLeft="10dp"
-            android:background="@drawable/bg_edit_text" />
+            android:text="Book"
+            android:textColor="@android:color/white"
+            android:textSize="30dp" />
+
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recycler_view"
-            android:background="@android:color/white"
-            android:layout_margin="10dp"
-            android:layout_below="@+id/edit_text"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_below="@+id/edit_text"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="10dp"
+            android:background="@color/colorPrimary">
 
         </android.support.v7.widget.RecyclerView>
         

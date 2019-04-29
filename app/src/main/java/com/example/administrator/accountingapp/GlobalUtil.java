@@ -3,20 +3,27 @@ package com.example.administrator.accountingapp;
 import android.content.Context;
 
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.LinkedList;
+
+
 
 public class GlobalUtil {
     private static GlobalUtil instance;
     public RecordDatabaseHelper databaseHelper;
     public LinkedList<CategoryResBean> costRes = new LinkedList<>();
     public LinkedList<CategoryResBean> earnRes = new LinkedList<>();
+    //public LinkedList<SearchBean>searchBeans=new LinkedList<>();
     private Context context;
     public MainActivity mainActivity;
 
+    //支出标题
     private static String[] costTitle = {"General", "Food", "Drinks","Groceries", "Shopping", "Personal","Entertain","Movies", "Social", "Transport",
             "App Store","Mobile","Computer","Gifts", "Housing", "Travel","Tickets","Books", "Medical","Transfer"};
 
 
+    //存储支出白色图片
     private static int [] costIconRes = {
             R.drawable.icon_general_white,
             R.drawable.icon_food_white,
@@ -39,6 +46,7 @@ public class GlobalUtil {
             R.drawable.icon_medical_white,
             R.drawable.icon_transfer_white
     };
+    //存储支出消费黑色图片
     private static int [] costIconResBlack = {
             R.drawable.icon_general,
             R.drawable.icon_food,
@@ -61,6 +69,7 @@ public class GlobalUtil {
             R.drawable.icon_medical,
             R.drawable.icon_transfer
     };
+    //存储收入白色图片
     private static int[] earnIconRes = {
             R.drawable.icon_general_white,
             R.drawable.icon_reimburse_white,
@@ -70,6 +79,7 @@ public class GlobalUtil {
             R.drawable.icon_bonus_white,
             R.drawable.icon_investment_white};
 
+    //存储收入黑色图片
     private static int[] earnIconResBlack = {
             R.drawable.icon_general,
             R.drawable.icon_reimburse,
@@ -78,6 +88,7 @@ public class GlobalUtil {
             R.drawable.icon_parttime,
             R.drawable.icon_bonus,
             R.drawable.icon_investment};
+    //存储收入标题
     private static String[] earnTitle = {"General", "Reimburse", "Salary","RedPocket","Part-time", "Bonus","Investment"};
 
     public Context getContext() {
@@ -101,7 +112,24 @@ public class GlobalUtil {
             res.reswhite=earnIconRes[i];
             earnRes.add(res);
         }
+        //
+       /* Calendar calendar = Calendar.getInstance();
+        calendar.setTime(new Date());
+        int month =calendar.get( Calendar.MONTH)+1;
+        int year=calendar.get(Calendar.YEAR);
+        searchBeans.clear();
+        for(int i=1;i<=month;i++){
+
+            SearchBean searchBean=new SearchBean();
+            searchBean.year=year;
+            searchBean.month=i;
+            searchBean.amount=databaseHelper.Search(i);
+            searchBeans.add(searchBean);
+        }*/
+
     }
+
+
 
 
     public static GlobalUtil getInstance(){
@@ -110,6 +138,11 @@ public class GlobalUtil {
         }
         return instance;
     }
+
+    /**获取资源图片
+     * @param category
+     * @return
+     */
     public int getResourceIcon(String category){
         for(CategoryResBean res:costRes){
             if(res.title.equals(category)){

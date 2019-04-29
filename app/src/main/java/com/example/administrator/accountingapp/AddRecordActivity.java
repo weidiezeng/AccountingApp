@@ -28,6 +28,7 @@ public class AddRecordActivity extends AppCompatActivity implements View.OnClick
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_record);
+        //初始化各控件
         findViewById(R.id.keyboard_one).setOnClickListener(this);
         findViewById(R.id.keyboard_two).setOnClickListener(this);
         findViewById(R.id.keyboard_three).setOnClickListener(this);
@@ -44,9 +45,13 @@ public class AddRecordActivity extends AppCompatActivity implements View.OnClick
         editText.setText(remark);
         getSupportActionBar().setElevation(0);
 
+        //点击小数点
         handleDot();
+        //点击删除
         handleBackspace();
+        //点击完成
         handleDone();
+        //点击类型转换
         handleTypeChance();
 
         recyclerView=findViewById(R.id.recycler_view);
@@ -66,6 +71,9 @@ public class AddRecordActivity extends AppCompatActivity implements View.OnClick
     }
 
 
+    /**
+     * 处理点击小数点事件
+     */
     private void handleDot(){
         findViewById(R.id.keyboard_doc).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -77,6 +85,10 @@ public class AddRecordActivity extends AppCompatActivity implements View.OnClick
             }
         });
     }
+
+    /**
+     * 处理点击类型转换事件
+     */
     private void handleTypeChance(){
         findViewById(R.id.keyboard_type).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -92,6 +104,10 @@ public class AddRecordActivity extends AppCompatActivity implements View.OnClick
             }
         });
     }
+
+    /**
+     * 处理点击删除事件
+     */
     private void handleBackspace(){
         findViewById(R.id.keyboard_backspace).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -106,6 +122,10 @@ public class AddRecordActivity extends AppCompatActivity implements View.OnClick
             }
         });
     }
+
+    /**
+     * 处理点击完成事件
+     */
     private void handleDone(){
         findViewById(R.id.keyboard_done).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -126,7 +146,6 @@ public class AddRecordActivity extends AppCompatActivity implements View.OnClick
                     }else {
                         GlobalUtil.getInstance().databaseHelper.addRecord(record);
                     }
-
                     finish();
                 }else {
                     Toast.makeText(getApplicationContext(),"金额不能为0",Toast.LENGTH_SHORT).show();
@@ -134,6 +153,11 @@ public class AddRecordActivity extends AppCompatActivity implements View.OnClick
             }
         });
     }
+
+    /**
+     * 处理点击数字键盘
+     * @param v
+     */
     @Override
     public void onClick(View v) {
         Button button=(Button)v;
@@ -148,6 +172,10 @@ public class AddRecordActivity extends AppCompatActivity implements View.OnClick
         }
         updateAmountText();
     }
+
+    /**
+     * 更新金额显示
+     */
     private void updateAmountText(){
         if(userinput.contains(".")){
             if(userinput.split("\\.").length==1){

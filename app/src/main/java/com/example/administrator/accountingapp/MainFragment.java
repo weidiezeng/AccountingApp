@@ -18,8 +18,9 @@ import android.widget.TextView;
 import java.util.LinkedList;
 
 
-
-
+/**
+ *
+ */
 @SuppressLint("ValidFragment")
 public class MainFragment extends Fragment implements AdapterView.OnItemLongClickListener {
     private View rootView;
@@ -31,7 +32,6 @@ public class MainFragment extends Fragment implements AdapterView.OnItemLongClic
 
     public MainFragment(String date){
         this.date=date;
-
         try{
             records=GlobalUtil.getInstance().databaseHelper.readrRecord(date);
         }catch (Exception e){
@@ -39,6 +39,12 @@ public class MainFragment extends Fragment implements AdapterView.OnItemLongClic
         }
     }
 
+    /**
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return
+     */
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -46,6 +52,11 @@ public class MainFragment extends Fragment implements AdapterView.OnItemLongClic
         initView();
         return rootView;
     }
+
+
+    /**
+     *重新加载ListView
+     */
     public void reload(){
         try{
             records=GlobalUtil.getInstance().databaseHelper.readrRecord(date);
@@ -53,25 +64,25 @@ public class MainFragment extends Fragment implements AdapterView.OnItemLongClic
             e.printStackTrace();
         }
         if(listviewAdapter==null){
-            try{
-                listviewAdapter=new ListeViewAdapter(getActivity().getApplicationContext());
-            }catch (Exception e){
-                e.printStackTrace();
-            }
-
+            listviewAdapter=new ListeViewAdapter(getActivity().getApplicationContext());
         }
-        listviewAdapter.setData(records);
-        listView.setAdapter(listviewAdapter);
+           listviewAdapter.setData(records);
+           listView.setAdapter(listviewAdapter);
 
         if(listviewAdapter.getCount()>0){
             rootView.findViewById(R.id.no_record_layout).setVisibility(View.INVISIBLE);
         }
     }
+
+    /**
+     * 初始化FragMent
+     */
     private void initView(){
         textView=rootView.findViewById(R.id.day_text);
         listView=rootView.findViewById(R.id.list_view);
         textView.setText(date);
 
+        //设置ListView适配器
         listviewAdapter=new ListeViewAdapter(getContext());
         listviewAdapter.setData(records);
         listView.setAdapter(listviewAdapter);
@@ -83,22 +94,41 @@ public class MainFragment extends Fragment implements AdapterView.OnItemLongClic
         listView.setOnItemLongClickListener(this);
     }
 
-    public int getTotalCost(){
+
+
+    /**
+     * @return 返回总花费
+     */
+    public double getTotalCost(){
         double totalCost=0;
         for(RecordBean recordBean:records){
             if (recordBean.getType()==1){
-                totalCost+= recordBean.getAmount();
+                totalCost-= recordBean.getAmount();
+            }else if(recordBean.getType()==2){
+                totalCost+=recordBean.getAmount();
             }
         }
-        return (int)totalCost;
+        return totalCost;
     }
 
+    /**监听长按事件，并显示对话框
+     * @param parent
+     * @param view
+     * @param position
+     * @param id
+     * @return
+     */
     @Override
     public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
 
         showDialog(position);
         return false;
     }
+
+    /**
+     * 显示对话框dialog
+     * @param index
+     */
     private void showDialog(int index){
         final String[] options={"Remove","Edit"};
         final RecordBean selectedRecord = records.get(index);
@@ -125,6 +155,7 @@ public class MainFragment extends Fragment implements AdapterView.OnItemLongClic
 
             }
         });
+        //设置取消
         builder.setNegativeButton("Cancel",null);
         builder.create().show();
     }

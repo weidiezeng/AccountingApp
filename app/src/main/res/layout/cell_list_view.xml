@@ -25,7 +25,7 @@
         <TextView
             android:id="@+id/textview_remark"
             android:textSize="20dp"
-            android:textColor="@android:color/primary_text_light"
+            android:textColor="@android:color/black"
             android:layout_width="match_parent"
             android:text="phone"
             android:layout_height="wrap_content" />
@@ -33,6 +33,7 @@
             android:id="@+id/textview_time"
             android:textSize="15dp"
             android:text="15:50"
+            android:textColor="@android:color/black"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
@@ -47,6 +48,7 @@
 
         <TextView
             android:id="@+id/textview_amount"
+            android:textColor="@android:color/black"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="20dp"

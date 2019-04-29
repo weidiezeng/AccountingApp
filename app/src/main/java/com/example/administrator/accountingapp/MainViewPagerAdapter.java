@@ -18,6 +18,9 @@ public class MainViewPagerAdapter extends FragmentPagerAdapter {
     }
 
 
+    /**
+     *
+     */
     private void initFragment(){
         try{
             dates=GlobalUtil.getInstance().databaseHelper.getAvaliableDate();
@@ -53,7 +56,7 @@ public class MainViewPagerAdapter extends FragmentPagerAdapter {
     public int getCount() {
         return fragments.size();
     }
-    public int getTotalCost(int index){
+    public double getTotalCost(int index){
         return fragments.get(index).getTotalCost();
     }
 
